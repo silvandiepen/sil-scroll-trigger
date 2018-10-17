@@ -1,6 +1,6 @@
 {
 	"name": "@sil/scroll-trigger",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"main": "dist/sil-scroll-trigger.umd.js",
 	"module": "dist/sil-scroll-trigger.esm.js",
 	"unpkg": "dist/sil-scroll-trigger.min.js",
