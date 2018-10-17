@@ -51,8 +51,7 @@ export default {
 			offset: 0,
 			elRect: el.getBoundingClientRect(),
 			elPos: get.position(el),
-			windowHeight: window.innerHeight,
-			rectzero: false
+			windowHeight: window.innerHeight
 		};
 		let init = {
 			settings: function() {
@@ -81,9 +80,6 @@ export default {
 					if (binding.value.debug) {
 						settings.debug = binding.value.debug;
 					}
-					if (binding.value.rectzero) {
-						settings.rectzero = true;
-					}
 				}
 				el.classList.add(settings.elementClass);
 			}
@@ -96,20 +92,14 @@ export default {
 
 				// Check if relative or absolute (read: If the element is translated, use the relative.
 				// If you want to use its original (or non translated) position, use absolute).
-				if (settings.rectzero) {
-					if (el.getBoundingClientRect().top - window.innerHeight < 0) {
-						isActive = true;
-					} else {
-						isActive = false;
-					}
-				} else if (settings.relative) {
+				if (settings.relative) {
 					if (settings.elRect.top + settings.offset < get.scrollBottom()) {
 						isActive = true;
 					} else {
 						isActive = false;
 					}
 				} else {
-					if (settings.elPos.top + settings.offset < get.scrollBottom()) {
+					if (el.getBoundingClientRect().top - window.innerHeight < 0) {
 						isActive = true;
 					} else {
 						isActive = false;
