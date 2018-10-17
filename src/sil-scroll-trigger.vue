@@ -46,6 +46,7 @@ export default {
 			debug: false,
 			relative: true,
 			activeClass: 'active',
+			inActiveClass: 'inactive',
 			offset: 0,
 			elRect: el.getBoundingClientRect(),
 			elPos: get.position(el),
@@ -66,6 +67,9 @@ export default {
 					}
 					if (binding.value.activeClass) {
 						settings.activeClass = binding.value.activeClass;
+					}
+					if (binding.value.inActiveClass) {
+						settings.inActiveClass = binding.value.inActiveClass;
 					}
 					if (binding.value.offset) {
 						settings.offset = binding.value.offset;
@@ -112,11 +116,13 @@ export default {
 					if (!settings.active) {
 						settings.active = true;
 						el.classList.add(settings.activeClass);
+						el.classList.remove(settings.inActiveClass);
 					}
 				} else {
 					if (settings.active) {
 						settings.active = false;
 						el.classList.remove(settings.activeClass);
+						el.classList.add(settings.inActiveClass);
 					}
 				}
 			}
