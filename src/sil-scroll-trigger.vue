@@ -45,6 +45,7 @@ export default {
 			active: false,
 			debug: false,
 			relative: true,
+			elementClass: 'active',
 			activeClass: 'active',
 			inActiveClass: 'inactive',
 			offset: 0,
@@ -71,6 +72,9 @@ export default {
 					if (binding.value.inActiveClass) {
 						settings.inActiveClass = binding.value.inActiveClass;
 					}
+					if (binding.value.elementClass) {
+						settings.elementClass = binding.value.elementClass;
+					}
 					if (binding.value.offset) {
 						settings.offset = binding.value.offset;
 					}
@@ -81,6 +85,7 @@ export default {
 						settings.rectzero = true;
 					}
 				}
+				el.classList.add(settings.elementClass);
 			}
 		};
 
