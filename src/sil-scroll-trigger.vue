@@ -127,9 +127,11 @@ export default {
 		init.settings();
 		check.position();
 
+		// Add a event listener to a resizing window.
 		window.addEventListener('resize', function() {
 			settings.windowHeight = window.innerHeight;
 		});
+
 		// When scrolling, check the position.
 		window.addEventListener('scroll', function() {
 			if (settings.elRect.top == 0 && settings.elRect.width == 0) {
