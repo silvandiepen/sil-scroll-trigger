@@ -45,7 +45,7 @@ export default {
 			active: false,
 			debug: false,
 			relative: true,
-			elementClass: 'active',
+			elementClass: 'trigger',
 			activeClass: 'active',
 			inActiveClass: 'inactive',
 			offset: 0,
