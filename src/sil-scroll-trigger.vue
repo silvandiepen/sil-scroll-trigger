@@ -48,6 +48,7 @@ export default {
 			elementClass: 'trigger',
 			activeClass: 'active',
 			inActiveClass: 'inactive',
+			startInactive: true,
 			offset: 0,
 			elRect: el.getBoundingClientRect(),
 			elPos: get.position(el),
@@ -77,11 +78,17 @@ export default {
 					if (binding.value.offset) {
 						settings.offset = binding.value.offset;
 					}
+					if (binding.value.startInactive) {
+						settings.startInactive = binding.value.startInactive;
+					}
 					if (binding.value.debug) {
 						settings.debug = binding.value.debug;
 					}
 				}
 				el.classList.add(settings.elementClass);
+				if (settings.startInactive) {
+					el.classList.add(settings.inActiveClass);
+				}
 			}
 		};
 
