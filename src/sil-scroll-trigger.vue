@@ -48,6 +48,7 @@ export default {
 			elementClass: 'trigger',
 			activeClass: 'active',
 			inActiveClass: 'inactive',
+			bemClass: null,
 			startInactive: true,
 			offset: 0,
 			elRect: el.getBoundingClientRect(),
@@ -74,6 +75,11 @@ export default {
 					}
 					if (binding.value.elementClass) {
 						settings.elementClass = binding.value.elementClass;
+					}
+					if(binding.value.bemClass){
+						settings.elementClass = `${binding.value.mainClass}__trigger`;
+						settings.activeClass = `${binding.value.mainClass}__trigger--active`;
+						settings.inActiveClass = `${binding.value.mainClass}__trigger--inactive`;
 					}
 					if (binding.value.offset) {
 						settings.offset = binding.value.offset;
@@ -132,7 +138,9 @@ export default {
 
 		// Initialize the position.
 		init.settings();
-		check.position();
+		setTimeout(function() {
+			check.position();
+		}, 100);
 
 		// Add a event listener to a resizing window.
 		window.addEventListener('resize', function() {
