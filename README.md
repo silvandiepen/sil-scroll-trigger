@@ -27,7 +27,7 @@ Use the component with default values:
 
 Use the component with alternative values:
 ```html
-<any-element v-trigger="{}" />	
+<any-element v-trigger="{ elementClass: 'myTrigger', inActiveClass: 'myTrigger-inactive', activeClass: 'myTrigger-active' }" />	
 ```
 
 
