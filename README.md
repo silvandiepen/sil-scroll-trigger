@@ -6,17 +6,17 @@ A simple Vue Directive to trigger a class based on the element inview or not.
 ### Install
 
 Install the package
-`npm install @sil/scroll-image`
+`npm install @sil/scroll-trigger`
 
 
 Import the package
 
-`import ScrollImage from '~/@sil/scroll-image`
+`import ScrollTrigger from '~/@sil/scroll-trigger`
 
 Define the component:
 
 ```js
-	Vue.directive(ScrollImage);
+	Vue.directive(ScrollTrigger);
 ```
 
 Use the component with default values:
