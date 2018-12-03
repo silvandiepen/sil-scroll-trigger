@@ -77,9 +77,9 @@ export default {
 						settings.elementClass = binding.value.elementClass;
 					}
 					if(binding.value.bemClass){
-						settings.elementClass = `${binding.value.mainClass}__trigger`;
-						settings.activeClass = `${binding.value.mainClass}__trigger--active`;
-						settings.inActiveClass = `${binding.value.mainClass}__trigger--inactive`;
+						settings.elementClass = `${binding.value.bemClass}__trigger`;
+						settings.activeClass = `${binding.value.bemClass}__trigger--active`;
+						settings.inActiveClass = `${binding.value.bemClass}__trigger--inactive`;
 					}
 					if (binding.value.offset) {
 						settings.offset = binding.value.offset;
