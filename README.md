@@ -22,12 +22,12 @@ Define the component:
 Use the component with default values:
 
 ```html
-<any-element v-trigger />	
+<any-element v-scroll-trigger />	
 ```
 
 Use the component with alternative values:
 ```html
-<any-element v-trigger="{ elementClass: 'myTrigger', inActiveClass: 'myTrigger-inactive', activeClass: 'myTrigger-active' }" />	
+<any-element v-scroll-trigger="{ elementClass: 'myTrigger', inActiveClass: 'myTrigger-inactive', activeClass: 'myTrigger-active' }" />	
 ```
 
 

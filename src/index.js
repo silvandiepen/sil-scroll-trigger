@@ -1,3 +1,4 @@
+/* eslint-disable */
 // Import vue component
 import directive from './sil-scroll-trigger.vue';
 

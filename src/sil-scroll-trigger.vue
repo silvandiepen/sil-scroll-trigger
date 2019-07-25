@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 /*
 
 A Vue directive to check if the element is under or above the fold and add a class when the element is above.
@@ -24,7 +25,7 @@ export default {
 					(window.pageYOffset || document.scrollTop) -
 					(document.clientTop || 0) +
 					window.innerHeight;
-				if (isNaN(0)) {
+				if (isNaN(bottom)) {
 					bottom = settings.windowHeight;
 				}
 				return bottom;
@@ -33,7 +34,7 @@ export default {
 				let bottom =
 					(window.pageYOffset || document.scrollTop) -
 					(document.clientTop || 0);
-				if (isNaN(0)) {
+				if (isNaN(bottom)) {
 					bottom = 0;
 				}
 				return bottom;
@@ -48,9 +49,11 @@ export default {
 			elementClass: 'trigger',
 			activeClass: 'active',
 			inActiveClass: 'inactive',
+			once: false,
 			bemClass: null,
 			startInactive: true,
 			offset: 0,
+			startDelay: 0,
 			elRect: el.getBoundingClientRect(),
 			elPos: get.position(el),
 			windowHeight: window.innerHeight
@@ -67,6 +70,12 @@ export default {
 					) {
 						settings.relative = binding.value.relative;
 					}
+					if (binding.value.debug) {
+						settings.debug = binding.value.debug;
+					}
+					if (binding.value.startDelay) {
+						settings.startDelay = binding.value.startDelay;
+					}
 					if (binding.value.activeClass) {
 						settings.activeClass = binding.value.activeClass;
 					}
@@ -76,10 +85,12 @@ export default {
 					if (binding.value.elementClass) {
 						settings.elementClass = binding.value.elementClass;
 					}
-					if(binding.value.bemClass){
+					if (binding.value.bemClass) {
 						settings.elementClass = `${binding.value.bemClass}__trigger`;
 						settings.activeClass = `${binding.value.bemClass}__trigger--active`;
-						settings.inActiveClass = `${binding.value.bemClass}__trigger--inactive`;
+						settings.inActiveClass = `${
+							binding.value.bemClass
+						}__trigger--inactive`;
 					}
 					if (binding.value.offset) {
 						settings.offset = binding.value.offset;
@@ -100,7 +111,7 @@ export default {
 
 		// The main function.
 		let check = {
-			position: function() {
+			position: function(initial = false) {
 				let isActive = false;
 
 				// Check if relative or absolute (read: If the element is translated, use the relative.
@@ -123,11 +134,19 @@ export default {
 				if (isActive) {
 					if (!settings.active) {
 						settings.active = true;
-						el.classList.add(settings.activeClass);
-						el.classList.remove(settings.inActiveClass);
+						if (initial) {
+							el.classList.add(settings.inActiveClass);
+							setTimeout(() => {
+								el.classList.add(settings.activeClass);
+								el.classList.remove(settings.inActiveClass);
+							}, settings.bindtime);
+						} else {
+							el.classList.add(settings.activeClass);
+							el.classList.remove(settings.inActiveClass);
+						}
 					}
 				} else {
-					if (settings.active) {
+					if (settings.active && !settings.once) {
 						settings.active = false;
 						el.classList.remove(settings.activeClass);
 						el.classList.add(settings.inActiveClass);
@@ -139,21 +158,36 @@ export default {
 		// Initialize the position.
 		init.settings();
 		setTimeout(function() {
-			check.position();
-		}, 100);
+			check.position(true);
+		}, settings.startDelay);
 
 		// Add a event listener to a resizing window.
 		window.addEventListener('resize', function() {
 			settings.windowHeight = window.innerHeight;
 		});
 
-		// When scrolling, check the position.
-		window.addEventListener('scroll', function() {
+		let curScrollY = 0,ticking = false;
+		
+		function update(){
+			ticking = false;
+			requestAnimationFrame(update);
 			if (settings.elRect.top == 0 && settings.elRect.width == 0) {
 				init.settings();
 			}
 			check.position();
-		});
+		}
+		
+		window.addEventListener('scroll', ()=>{
+			curScrollY = window.scrollY;
+			requestTick();	
+		},false);
+
+		function requestTick(){
+			if(!ticking){
+				requestAnimationFrame(update);
+			}
+			ticking = true;
+		}		
 	}
 };
 </script>
